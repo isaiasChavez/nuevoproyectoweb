@@ -1,0 +1,267 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "REST API proyectoUTM",
+        "description": "<html><body>Esta es la documentación de la API para el sistema de Investigación Docencia.<p>Para poder usar esta API es necesario solicitar el token y con esto poder utilizar los servicios proporcionados.</p><br><p><b>Autenticación y token de API</b></p><p>La Universidad Tecnológica de la Mixteca (UTM) proporciona el api-token. Una vez que haya creado y confirmado su cuenta.</p></body></html>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Institutos",
+            "description": "API para obtener información de los institutos de la UTM"
+        },
+        {
+            "name": "Carreras",
+            "description": "API para obtener información de las carreras de la UTM"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/institutos": {
+            "get": {
+                "tags": [
+                    "Institutos"
+                ],
+                "summary": "Listado de todos los institutos que existen en la UTM.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los institutos que existen en la UTM.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los institutos existentes en la UTM?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idInstituto": 1,
+                                    "codigo": "001",
+                                    "nombre": "Instituto de electrónica y mecatrónica"
+                                },
+                                {
+                                    "idInstituto": 2,
+                                    "codigo": "002",
+                                    "nombre": "Instituto de computación"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Institutos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/institutos/{idInstituto}": {
+            "get": {
+                "tags": [
+                    "Institutos"
+                ],
+                "summary": "Listado de una carrera en particular.",
+                "description": "<p>Servicio ...</p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idCarrera": 1,
+                                    "codigoCarrera": "02",
+                                    "nombre": "Ingenieria en computación",
+                                    "idInstituto": 1
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Carrera"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "idCarrera",
+                        "in": "path",
+                        "required": true,
+                        "description": "idCarrera de la carrera de la cuál se requiere la información",
+                        "type": "number",
+                        "default": "8"
+                    }
+                ]
+            }
+        },
+        "/api/institutos/eliminar/{idInstituto}": {
+            "delete": {
+                "summary": "Eliminar un instituto",
+                "operationId": "eliminar",
+                "parameters": [
+                    {
+                        "name": "idInstituto",
+                        "in": "path",
+                        "description": "id del Instituto a eliminar",
+                        "required": true,
+                        "default": 14
+                    }
+                ],
+                "tags": [
+                    "Institutos"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/institutos/create": {
+            "post": {
+                "summary": "Creando un instituto",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "instituto",
+                        "in": "body",
+                        "description": "Instituto agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoInstituto"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Institutos"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/institutos/actualizar/{idInstituto}": {
+            "put": {
+                "summary": "Modificando un instituto",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idInstituto",
+                        "in": "path",
+                        "description": "id del Instituto a eliminar",
+                        "required": true,
+                        "default": 18
+                    },
+                    {
+                        "name": "Instituto",
+                        "in": "body",
+                        "description": "Instituto a modificar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ViejoInstituto"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Institutos"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Instituto": {
+            "type": "object",
+            "properties": {
+                "idInstituto": {
+                    "type": "number",
+                    "description": "Identificador del instituto"
+                },
+                "codigo": {
+                    "type": "string",
+                    "description": "Código del instituto"
+                },
+                "nombreInstituto": {
+                    "type": "string",
+                    "description": "Nombre del instituto"
+                }
+            }
+        },
+        "ViejoInstituto": {
+            "type": "object",
+            "required": [
+                "codigo",
+                "nombre"
+            ],
+            "properties": {
+                "codigo": {
+                    "type": "string",
+                    "default": "111"
+                },
+                "nombre": {
+                    "type": "string",
+                    "default": "Instituto patito"
+                }
+            }
+        },
+        "Institutos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Instituto"
+            }
+        },
+        "NuevoInstituto": {
+            "type": "object",
+            "required": [
+                "codigo",
+                "nombre"
+            ],
+            "properties": {
+                "codigo": {
+                    "type": "string",
+                    "default": "111"
+                },
+                "nombre": {
+                    "type": "string",
+                    "default": "Instituto patito"
+                }
+            }
+        }
+    }
+}
